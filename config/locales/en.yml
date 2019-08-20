@@ -1,33 +1,44 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  errors:
+    application:
+      not_admin: 'Not admin'
+      page_not_specified: 'Page is not specified'
+      user_not_exist: 'User does not exist'
+    categories:
+      unable_create: 'Unable to create restaurant'
+      unable_update: 'Unable to update restaurant'
+    charging_stations:
+      unable_assign_place: 'Unable to assign place'
+      unable_create: 'Unable to create charging station'
+      unable_start_lease: 'Unable to start lease'
+      unable_finish_lease: 'Unable to finish lease'
+      unable_update_state: 'Unable to update charging station state'
+      unable_assign_to_same_place: 'Unable to assign to the same place'
+      no_powerbanks_available: 'No powerbanks available'
+      powerbank_not_specified: 'Powerbank is not specified'
+      invalid_index_params: 'Neither page nor location specified'
+      invalid_radius: 'Radius is equal or greater than 10000'
+    leases:
+      wrong_user: 'Wrong user'
+    places:
+      unable_create: 'Unable to create place'
+      not_in_polygon: 'User is not in a polygon'
+      invalid_admin_params: 'Neither page nor location specified'
+      invalid_user_params: 'Location not specified'
+      invalid_radius: 'Radius is equal or greater than 10000'
+    powerbanks:
+      invalid_params: 'Invalid parameters'
+    restaurants:
+      unable_create: 'Unable to create restaurant'
+      unable_update: 'Unable to update restaurant'
+    twilio:
+      common: 'Twilio error'
+      invalid_params: 'Invalid params'
+      invalid_verification_code: 'Invalid cerification code'
+    users:
+      invalid_input: 'Invalid input'
+      verification_not_approved: 'Verification has not been approved'
+      verification_not_pending: 'Verification is not pending'
+      not_found: 'User not found'
+      invalid_phone: 'Invalid phone number'
+      unable_update: 'Unable to update user'

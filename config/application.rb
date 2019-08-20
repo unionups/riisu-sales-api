@@ -13,6 +13,9 @@ require "action_cable/engine"
 # require "sprockets/railtie"
 require "rails/test_unit/railtie"
 
+require_relative '../lib/authentication/token_strategy.rb'
+require_relative '../lib/authentication/set_response_token.rb'
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -31,5 +34,11 @@ module RiisuSalesApi
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+    config.eager_load_paths << Rails.root.join('lib')
+    config.middleware.use Warden::Manager do |manager|
+      manager.default_strategies :token
+      manager.failure_app = Proc.new { |env| ['401', {'Content-Type' => 'application/json'}, { error: 'Unauthorized', code: 401 }] }
+    end
+    config.middleware.use Authentication::SetResponseToken
   end
 end
