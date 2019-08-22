@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_20_091736) do
+ActiveRecord::Schema.define(version: 2019_08_21_193421) do
 
   create_table "roles", force: :cascade do |t|
     t.string "name"
@@ -28,6 +28,11 @@ ActiveRecord::Schema.define(version: 2019_08_20_091736) do
     t.string "auth_token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.decimal "access_level", default: "0.0"
+    t.string "referral_code"
+    t.json "stat", default: {}
     t.index ["auth_token"], name: "index_users_on_auth_token", unique: true
     t.index ["phone_number"], name: "index_users_on_phone_number", unique: true
   end

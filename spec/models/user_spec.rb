@@ -1,7 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  let(:user) {create(:user)}
+
   it 'has secure token' do
-    expect(User.create(phone_number: Phonelib.parse(Faker::PhoneNumber.phone_number_with_country_code).e164).auth_token).to be_present
+    expect(user.auth_token).to be_present
   end
+
+  it 'has :user role' do
+    expect(user.has_role? :user).to eq true
+  end
+
 end

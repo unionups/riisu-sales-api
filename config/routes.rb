@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       post '/confirm_verification', to: 'sessions#create'
       constraints Constraints::UserConstraint do
         # authenticated :user role routes
+        resources :users, only: [:show, :update]
       end
       constraints Constraints::AdminConstraint do
         scope module: 'admin' do

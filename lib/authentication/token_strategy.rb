@@ -7,12 +7,12 @@ module Authentication
     end
 
     def authenticate!
-      user = User.find_by_token(access_token)
+      user = User.find_by(auth_token: access_token)
 
       if user.nil?
         fail!('Unauthenticate User')
       else
-        user.regenerate_token
+        user.regenerate_auth_token
         success!(user)
       end
     end

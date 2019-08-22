@@ -1,7 +1,7 @@
 class CreateUsers < ActiveRecord::Migration[5.2]
   def change
     create_table :users do |t|
-      t.string :phone_number
+      t.string :phone_number, unique: true
       t.string :auth_token
 
       t.timestamps

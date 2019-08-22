@@ -22,7 +22,7 @@ require 'rspec/rails'
 #
 # Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
 
-Dir["./spec/support/**/*.rb"].each { |f| require f }
+Dir["./spec/supports/**/*.rb"].each { |f| require f }
 require 'dotenv'
 Dotenv.load('.env')
 require 'webmock/rspec'
@@ -35,6 +35,9 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 RSpec.configure do |config|
+  
+  config.include Rails.application.routes.url_helpers
+
   config.around(:each) do |example|
     DatabaseCleaner.cleaning do
       example.run
