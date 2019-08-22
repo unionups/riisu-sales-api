@@ -4,15 +4,16 @@ Rails.application.routes.draw do
       # unauthenticated routes
       post '/start_verification', to: 'sessions#new'
       post '/confirm_verification', to: 'sessions#create'
+      
       constraints Constraints::UserConstraint do
+        constraints Constraints::AdminConstraint do
+          scope module: 'admin' do
+            # authenticated :admin role routes
+            resources :users
+          end
+        end
         # authenticated :user role routes
         resources :users, only: [:show, :update]
-      end
-      constraints Constraints::AdminConstraint do
-        scope module: 'admin' do
-          # authenticated :admin role routes
-         
-        end
       end
     end
   end

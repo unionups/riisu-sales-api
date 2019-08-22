@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2019_08_21_193421) do
     t.datetime "updated_at", null: false
     t.string "first_name"
     t.string "last_name"
-    t.decimal "access_level", default: "0.0"
+    t.integer "access_level", default: 0
     t.string "referral_code"
     t.json "stat", default: {}
     t.index ["auth_token"], name: "index_users_on_auth_token", unique: true

@@ -35,6 +35,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 
 gem 'rolify'
+gem 'cancancan'
 gem 'warden'
 
 gem 'simple_command'

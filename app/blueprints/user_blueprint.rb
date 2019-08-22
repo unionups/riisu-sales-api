@@ -3,7 +3,10 @@ class UserBlueprint < Blueprinter::Base
 
 	view :full do
     fields :phone_number, :first_name, :last_name, :access_level, :referral_code, :stat
-    field :auth_token, name: :token
+  end
+  view :create do
+  	include_view :full
+  	field :auth_token, name: :token
   end
 
 end

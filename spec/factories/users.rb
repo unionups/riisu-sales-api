@@ -11,7 +11,8 @@ FactoryBot.define do
       add_attribute(:verification_code){"8334"}
     end
     factory :admin do
-      after(:create) {|user| user.add_role(:admin)}
+      after(:create) {|admin| admin.add_role(:admin)}
+      phone_number {"+380682035832"}
     end
   end
 end
