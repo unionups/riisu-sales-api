@@ -1,5 +1,6 @@
 require 'rails_helper'
-RSpec.describe 'User API', type: :api do
+
+RSpec.describe 'Users API', type: :api do
   describe "UNAUTHENTICATED USER" do
     let(:user){create(:user)}
 

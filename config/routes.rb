@@ -10,6 +10,7 @@ Rails.application.routes.draw do
           scope module: 'admin' do
             # authenticated :admin role routes
             resources :users
+            resources :places
           end
         end
         # authenticated :user role routes

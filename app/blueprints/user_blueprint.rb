@@ -1,12 +1,12 @@
 class UserBlueprint < Blueprinter::Base
-	identifier :id
+  identifier :id
 
-	view :full do
+  view :full do
     fields :phone_number, :first_name, :last_name, :access_level, :referral_code, :stat
   end
   view :create do
-  	include_view :full
-  	field :auth_token, name: :token
+    include_view :full
+    field :auth_token, name: :token
   end
 
 end

@@ -40,12 +40,16 @@ class Ability
         when user.has_role?(:superadmin)
           can :manage, :all
         when user.has_role?(:admin)
+          # users 
           can    :crud, User
           cannot :crud, User, id: User.with_role(:admin).pluck(:id) 
-          can :assign_access_level, User
+          can    :assign_access_level, User
           cannot :assign_access_level, User, id: User.with_role(:admin).pluck(:id)
+          # places
+          can    :crud, Place
         else
-          can :crud, User, id: user.id
+          can    :crud, User, id: user.id
+          can    :read, Place
       end
     end
   end
