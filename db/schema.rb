@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_124524) do
     t.string "google_id"
     t.string "address"
     t.json "coordinate"
-    t.integer "access_level"
+    t.integer "access_level", default: 0
     t.integer "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

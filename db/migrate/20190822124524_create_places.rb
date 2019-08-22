@@ -5,7 +5,7 @@ class CreatePlaces < ActiveRecord::Migration[5.2]
       t.string :google_id
       t.string :address
       t.json :coordinate
-      t.integer :access_level
+      t.integer :access_level, default: 0
       t.integer :price
 
       t.timestamps

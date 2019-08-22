@@ -3,7 +3,7 @@ FactoryBot.define do
     phone_number {"+380682035831"}
     first_name {""}
     last_name {""}
-    access_level {""} 
+    access_level {0} 
     referral_code {""}
     stat {{}}
     auth_token {""}

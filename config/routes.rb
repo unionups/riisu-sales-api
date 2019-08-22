@@ -15,6 +15,7 @@ Rails.application.routes.draw do
         end
         # authenticated :user role routes
         resources :users, only: [:show, :update]
+        resources :places, only: [:index, :show]
       end
     end
   end
