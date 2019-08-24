@@ -34,6 +34,7 @@ class Ability
 
 
     alias_action :create, :read, :update, :destroy, to: :crud
+    alias_action :accept, :decline, :cancel, to: :complete
 
     if user.present? 
       case 
@@ -42,14 +43,17 @@ class Ability
         when user.has_role?(:admin)
           # users 
           can    :crud, User
-          cannot :crud, User, id: User.with_role(:admin).pluck(:id) 
+          cannot :manage, User, id: User.with_role(:admin).pluck(:id) 
           can    :assign_access_level, User
-          cannot :assign_access_level, User, id: User.with_role(:admin).pluck(:id)
           # places
           can    :crud, Place
         else
-          can    :crud, User, id: user.id
-          can    :read, Place
+          can    :manage, User, id: user.id
+          can    :read, Place, access_level: [0..user.access_level]
+          can    :create, Claim, place_id: Place.all_by_access_level(user.access_level).pluck(:id) 
+          can    :read, Claim
+          can    :update, Claim, id: Claim.with_role(:claimer, user).pluck(:id) 
+          can    :complete, Claim, id: Claim.with_role(:claimer, user).pluck(:id) 
       end
     end
   end

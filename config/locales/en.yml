@@ -4,6 +4,7 @@ en:
       not_admin: 'Not admin'
       page_not_specified: 'Page is not specified'
       user_not_exist: 'User does not exist'
+      access_dined: "Access dined"
     categories:
       unable_create: 'Unable to create restaurant'
       unable_update: 'Unable to update restaurant'
@@ -26,6 +27,8 @@ en:
       invalid_admin_params: 'Neither page nor location specified'
       invalid_user_params: 'Location not specified'
       invalid_radius: 'Radius is equal or greater than 10000'
+    claims:
+      place_already_claimed: "Place already claimed"
     powerbanks:
       invalid_params: 'Invalid parameters'
     restaurants:

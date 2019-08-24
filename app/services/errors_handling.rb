@@ -4,6 +4,7 @@ module Services
 				10001 => I18n.t('errors.application.not_admin'),
 				10002 => I18n.t('errors.application.page_not_specified'),
 				10003 => I18n.t('errors.application.user_not_exist'),
+				10004 => I18n.t('errors.application.access_dined'),
 				10101 => I18n.t('errors.charging_stations.unable_assign_place'),
 				10102 => I18n.t('errors.charging_stations.unable_create'),
 				10103 => I18n.t('errors.charging_stations.unable_start_lease'),
@@ -30,6 +31,7 @@ module Services
 				10602 => I18n.t('errors.restaurants.unable_update'),
 				10701 => I18n.t('errors.categories.unable_create'),
 				10702 => I18n.t('errors.categories.unable_update'),
+				10801 => I18n.t('errors.claims.place_already_claimed'),
 				60200 => I18n.t('errors.twilio.invalid_params'),
 				60201 => I18n.t('errors.twilio.invalid_verification_code'),
 				60205 => 'SMS is not supported by landline phone number'

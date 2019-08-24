@@ -16,7 +16,7 @@ RSpec.describe 'Verification', type: :request do
       post '/api/v1/confirm_verification', params: attributes_for(:verified_user)
 
       expect(response.status).to eq 200
-      expect(JSON.parse(response.body)['user']['token']).to be_present
+      expect(JSON.parse(response.body)['token']).to be_present
     end
   end
 end    

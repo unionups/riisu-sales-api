@@ -16,6 +16,10 @@ Rails.application.routes.draw do
         # authenticated :user role routes
         resources :users, only: [:show, :update]
         resources :places, only: [:index, :show]
+        resources :claims, except: [:destroy]
+        get  '/claims/:id/cancel',  to: "claims#cancel", as: :cancel_claim
+        post '/claims/:id/accept',  to: "claims#accept", as: :accept_claim
+        post '/claims/:id/decline', to: "claims#decline", as: :decline_claim
       end
     end
   end

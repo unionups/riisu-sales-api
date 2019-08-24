@@ -43,6 +43,7 @@ gem 'simple_command'
 gem 'oj'
 gem 'blueprinter'
 
+gem 'aasm'
 
 group :development, :test do
 	gem 'faker'

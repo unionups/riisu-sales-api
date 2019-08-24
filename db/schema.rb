@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_22_124524) do
+ActiveRecord::Schema.define(version: 2019_08_22_235328) do
+
+  create_table "claims", force: :cascade do |t|
+    t.string "user_state"
+    t.string "admin_state"
+    t.json "updates", default: []
+    t.json "details"
+    t.json "price"
+    t.integer "place_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["place_id"], name: "index_claims_on_place_id"
+  end
 
   create_table "places", force: :cascade do |t|
     t.string "name"
@@ -19,6 +31,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_124524) do
     t.json "coordinate"
     t.integer "access_level", default: 0
     t.integer "price"
+    t.boolean "claimed", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
