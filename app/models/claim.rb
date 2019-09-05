@@ -8,13 +8,12 @@ class Claim < ApplicationRecord
   store_accessor :price, :place_price, :claim_price
   
 
-  # after_initialize :initialize_defaults, :if => :new_record?
-
   before_create do
     throw :abort if self.place.claimed
     self.place_price = self.place.price
     self.place.update_attribute(:claimed, true)
   end
+  
   
   aasm :user, column: :user_state, namespace: :user, logger: Rails.logger do
     state :started, initial: true
@@ -31,7 +30,6 @@ class Claim < ApplicationRecord
     end
 
     event :decline, binding_event: :start do
-      "p force decline"
       transitions from: :started, to: :declined
     end
 
