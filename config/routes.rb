@@ -11,6 +11,9 @@ Rails.application.routes.draw do
             # authenticated :admin role routes
             resources :users
             resources :places
+            resources :claims
+            get  '/claims/:id/cancel',  to: "claims#cancel", as: :admin_cancel_claim
+            get '/claims/:id/accept',  to: "claims#accept", as: :admin_accept_claim
           end
         end
         # authenticated :user role routes

@@ -47,6 +47,11 @@ class Ability
           can    :assign_access_level, User
           # places
           can    :crud, Place
+
+          can    :read, Claim
+          can    :update, Claim
+          can    :complete, Claim
+          
         else
           can    :manage, User, id: user.id
           can    :read, Place, access_level: [0..user.access_level]

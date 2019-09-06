@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Claims API', type: :api do
     let(:user) {create(:user)}
+    let(:admin){create(:admin)}
     let(:place){create(:place)}
     let(:claimed_place){create(:place, claimed: true)}
     let(:place_lvl_2){create(:place, access_level: 2)}
@@ -135,5 +136,23 @@ RSpec.describe 'Claims API', type: :api do
     ################
       post api_v1_decline_claim_path(claim), {claim: attributes_for(:claim)}, { "token" => user.auth_token }
       expect( last_response.status ).to eq 403
+    end
+
+    ################
+    it  "ADMIN must get sended claims: GET '/api/v1/claims' -> admin/claims#index " do
+    ################
+      create_list(:place, 3).each do |pl|
+        cl = pl.claims.create!
+        cl.accept_user!
+      end
+
+      create_list(:place, 2).each do |pl|
+        cl = pl.claims.create!
+      end
+
+      get api_v1_claims_path, nil, { "token" => admin.auth_token }
+      
+      expect( Claim.all.count ).to eq 5
+      expect( JSON.parse(last_response.body).count ).to eq 3
     end
 end
