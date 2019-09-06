@@ -155,4 +155,36 @@ RSpec.describe 'Claims API', type: :api do
       expect( Claim.all.count ).to eq 5
       expect( JSON.parse(last_response.body).count ).to eq 3
     end
+
+    ################
+    it  "ADMIN must 'accept' sended claim: GET '/api/v1/claims/:id/accept' -> admin/claims#accept " do
+    ################
+      claim.accept_user!
+      expect(claim.place.claimed).to eq true
+      expect(claim.user_state).to eq "accepted"
+      expect(claim.admin_state).to eq "started"
+
+      get api_v1_admin_accept_claim_path(claim), nil, { "token" => admin.auth_token }
+      expect( last_response.status ).to eq 200
+      
+      cl = Claim.find(claim.id) 
+      expect(cl.place.claimed).to eq true
+      expect(cl.admin_state).to eq "accepted"
+    end
+
+    ################
+    it  "ADMIN must 'cancel' sended claim: GET '/api/v1/claims/:id/cancel' -> admin/claims#cansel " do
+    ################
+      claim.accept_user!
+      expect(claim.place.claimed).to eq true
+      expect(claim.user_state).to eq "accepted"
+      expect(claim.admin_state).to eq "started"
+
+      get api_v1_admin_cancel_claim_path(claim), nil, { "token" => admin.auth_token }
+      expect( last_response.status ).to eq 200
+      
+      cl = Claim.find(claim.id) 
+      expect(cl.place.claimed).to eq false
+      expect(cl.admin_state).to eq "canceled"
+    end
 end
