@@ -12,7 +12,7 @@ module Authentication
       if user.nil?
         fail!('Unauthenticate User')
       else
-        user.regenerate_auth_token
+        # user.regenerate_auth_token
         success!(user)
       end
     end
