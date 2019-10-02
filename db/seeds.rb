@@ -7,3 +7,5 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 u = User.create(phone_number: "+380972766044")
 u.add_role :admin
+u = User.create(phone_number: "+380632531371")
+u.add_role :admin
