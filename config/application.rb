@@ -35,6 +35,7 @@ module RiisuSalesApi
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
     config.eager_load_paths << Rails.root.join('lib')
+
     config.middleware.use Warden::Manager do |manager|
       manager.default_strategies :token
       manager.failure_app = Proc.new { |env| ['401', {'Content-Type' => 'application/json'}, { error: 'Unauthorized', code: 401 }] }

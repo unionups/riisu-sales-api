@@ -11,7 +11,7 @@ RSpec.describe 'Claims API', type: :api do
     ################
     it "USER must can create claim, place must be marked as claimed: POST '/api/v1/claims' -> claims#create " do
     ################
-      post api_v1_claims_path,{claim: {place_id: place.id}}, { "token" => user.auth_token }
+      post api_v1_claims_path,{claim: {place_id: place.id}}, { "HTTP_TOKEN" => user.auth_token }
 
       expect( last_response.status ).to eq 200
       expect( JSON.parse(last_response.body )['place_price']).to be_present
@@ -22,7 +22,7 @@ RSpec.describe 'Claims API', type: :api do
     ################
     it "USER must ACCES DINED for hightes access level plase: POST '/api/v1/claims' -> claims#create " do
     ################
-      post api_v1_claims_path,{claim: {place_id: place_lvl_2.id}}, { "token" => user.auth_token }
+      post api_v1_claims_path,{claim: {place_id: place_lvl_2.id}}, { "HTTP_TOKEN" => user.auth_token }
 
       expect( last_response.status ).to eq 403
     end
@@ -30,7 +30,7 @@ RSpec.describe 'Claims API', type: :api do
     ################
     it "USER must can't create claim for claimed place: POST '/api/v1/claims' -> claims#create" do
     ################
-      post api_v1_claims_path,{claim: {place_id: claimed_place.id}}, { "token" => user.auth_token }
+      post api_v1_claims_path,{claim: {place_id: claimed_place.id}}, { "HTTP_TOKEN" => user.auth_token }
 
       expect( last_response.status ).to eq 422
     end
@@ -39,7 +39,7 @@ RSpec.describe 'Claims API', type: :api do
     it "USER must send 'updates text' to them claims: PATCH '/api/v1/claims/:id' -> claims#update" do
     ################
       user.add_role :claimer, claim
-      patch api_v1_claim_path(claim),{claim: {update: "Update text"}}, { "token" => user.auth_token }
+      patch api_v1_claim_path(claim),{claim: {update: "Update text"}}, { "HTTP_TOKEN" => user.auth_token }
       
       expect( Claim.find(claim.id).updates.last ).to eq "Update text"
       expect( last_response.status ).to eq 200
@@ -48,7 +48,7 @@ RSpec.describe 'Claims API', type: :api do
     ################
     it "USER must ACEES DINED send 'updates text' to no user claims: PATCH '/api/v1/claims/:id' -> claims#update" do
     ################
-      patch api_v1_claim_path(claim),{claim: {update: "Update text"}}, { "token" => user.auth_token }
+      patch api_v1_claim_path(claim),{claim: {update: "Update text"}}, { "HTTP_TOKEN" => user.auth_token }
 
       expect( last_response.status ).to eq 403
     end
@@ -64,7 +64,7 @@ RSpec.describe 'Claims API', type: :api do
         pl.claims.create!
       end
 
-      get api_v1_claims_path, nil, { "token" => user.auth_token }
+      get api_v1_claims_path, nil, { "HTTP_TOKEN" => user.auth_token }
       
       expect( Claim.all.count ).to eq 5
       expect( JSON.parse(last_response.body).count ).to eq 3
@@ -76,7 +76,7 @@ RSpec.describe 'Claims API', type: :api do
       user.add_role :claimer, claim
       expect(claim.place.claimed).to eq true
 
-      get api_v1_cancel_claim_path(claim), nil, { "token" => user.auth_token }
+      get api_v1_cancel_claim_path(claim), nil, { "HTTP_TOKEN" => user.auth_token }
       expect( last_response.status ).to eq 200
       expect(Claim.find(claim.id).place.claimed).to eq false
     end
@@ -84,7 +84,7 @@ RSpec.describe 'Claims API', type: :api do
     ################
     it  "USER must ACEES DINED 'cancel' not his claim: GET '/api/v1/claims/:id/cancel' -> claims#cancel " do
     ################
-      get api_v1_cancel_claim_path(claim), nil, { "token" => user.auth_token }
+      get api_v1_cancel_claim_path(claim), nil, { "HTTP_TOKEN" => user.auth_token }
       expect( last_response.status ).to eq 403
     end
 
@@ -97,7 +97,7 @@ RSpec.describe 'Claims API', type: :api do
       expect(claim.user_state).to eq "started"
       expect(claim.admin_state).to eq "pending"
 
-      post api_v1_accept_claim_path(claim), {claim: attributes_for(:claim)}, { "token" => user.auth_token }
+      post api_v1_accept_claim_path(claim), {claim: attributes_for(:claim)}, { "HTTP_TOKEN" => user.auth_token }
       expect( last_response.status ).to eq 200
       
       cl = Claim.find(claim.id) 
@@ -109,7 +109,7 @@ RSpec.describe 'Claims API', type: :api do
     ################
     it  "USER must ACEES DINED 'accept' not his claim: POST '/api/v1/claims/:id/accept' -> claims#accept " do
     ################
-      post api_v1_accept_claim_path(claim), {claim: attributes_for(:claim)}, { "token" => user.auth_token }
+      post api_v1_accept_claim_path(claim), {claim: attributes_for(:claim)}, { "HTTP_TOKEN" => user.auth_token }
       expect( last_response.status ).to eq 403
     end
 
@@ -122,7 +122,7 @@ RSpec.describe 'Claims API', type: :api do
       expect(claim.user_state).to eq "started"
       expect(claim.admin_state).to eq "pending"
 
-      post api_v1_decline_claim_path(claim), {claim: attributes_for(:claim)}, { "token" => user.auth_token }
+      post api_v1_decline_claim_path(claim), {claim: attributes_for(:claim)}, { "HTTP_TOKEN" => user.auth_token }
       expect( last_response.status ).to eq 200
       
       cl = Claim.find(claim.id) 
@@ -134,7 +134,7 @@ RSpec.describe 'Claims API', type: :api do
     ################
     it  "USER must ACEES DINED 'decline' not his claim: POST '/api/v1/claims/:id/decline' -> claims#decline " do
     ################
-      post api_v1_decline_claim_path(claim), {claim: attributes_for(:claim)}, { "token" => user.auth_token }
+      post api_v1_decline_claim_path(claim), {claim: attributes_for(:claim)}, { "HTTP_TOKEN" => user.auth_token }
       expect( last_response.status ).to eq 403
     end
 
@@ -150,7 +150,7 @@ RSpec.describe 'Claims API', type: :api do
         cl = pl.claims.create!
       end
 
-      get api_v1_claims_path, nil, { "token" => admin.auth_token }
+      get api_v1_claims_path, nil, { "HTTP_TOKEN" => admin.auth_token }
       
       expect( Claim.all.count ).to eq 5
       expect( JSON.parse(last_response.body).count ).to eq 3
@@ -164,7 +164,7 @@ RSpec.describe 'Claims API', type: :api do
       expect(claim.user_state).to eq "accepted"
       expect(claim.admin_state).to eq "started"
 
-      get api_v1_admin_accept_claim_path(claim), nil, { "token" => admin.auth_token }
+      get api_v1_admin_accept_claim_path(claim), nil, { "HTTP_TOKEN" => admin.auth_token }
       expect( last_response.status ).to eq 200
       
       cl = Claim.find(claim.id) 
@@ -180,7 +180,7 @@ RSpec.describe 'Claims API', type: :api do
       expect(claim.user_state).to eq "accepted"
       expect(claim.admin_state).to eq "started"
 
-      get api_v1_admin_cancel_claim_path(claim), nil, { "token" => admin.auth_token }
+      get api_v1_admin_cancel_claim_path(claim), nil, { "HTTP_TOKEN" => admin.auth_token }
       expect( last_response.status ).to eq 200
       
       cl = Claim.find(claim.id) 

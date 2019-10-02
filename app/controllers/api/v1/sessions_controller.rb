@@ -12,7 +12,7 @@ class Api::V1::SessionsController < ApplicationController
     cmd = UserVerificationConfirm.call(params[:phone_number], params[:verification_code])
     if cmd.success?
       user = User.find_or_create_by(phone_number: params[:phone_number])
-      user.regenerate_auth_token
+      # user.regenerate_auth_token
       render json: UserBlueprint.render(user, view: :create)
     else
       render status: 422, json: cmd.errors[:user_verification]

@@ -20,7 +20,9 @@ module Authentication
     private
 
     def access_token
-      @access_token ||= request.get_header('token')
+      # @access_token ||= request.get_header('token')
+      @access_token ||= env['HTTP_TOKEN']
+
     end
   end
 end
